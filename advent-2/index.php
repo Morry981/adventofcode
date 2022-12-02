@@ -17,9 +17,34 @@ $moves_index = array_keys($moves);
 $total_point = 0;
 $matches = explode(PHP_EOL, $input);
 for ($i = 0; $i < count($matches); $i++) {
-    if(!$matches[$i]) continue;
+    if (!$matches[$i])
+        continue;
 
     [$opponent_move, $elv_move] = explode(' ', $matches[$i]);
+
+    // Second part
+    if ($elv_move == 'Y') {
+        if ($moves[$opponent_move] == 'Rock')
+            $elv_move = 'X';
+        else if ($moves[$opponent_move] == 'Scissor')
+            $elv_move = 'Z';
+        else if ($moves[$opponent_move] == 'Paper')
+            $elv_move = 'Y';
+    } else if ($elv_move == 'X') {
+        if ($moves[$opponent_move] == 'Rock')
+            $elv_move = 'Z';
+        else if ($moves[$opponent_move] == 'Scissor')
+            $elv_move = 'Y';
+        else if ($moves[$opponent_move] == 'Paper')
+            $elv_move = 'X';
+    } else if ($elv_move == 'Z') {
+        if ($moves[$opponent_move] == 'Rock')
+            $elv_move = 'Y';
+        else if ($moves[$opponent_move] == 'Scissor')
+            $elv_move = 'X';
+        else if ($moves[$opponent_move] == 'Paper')
+            $elv_move = 'Z';
+    }
 
     $total_point += array_search($elv_move, $moves_index) + 1;
     if ($moves[$elv_move] == $moves[$opponent_move]) {
