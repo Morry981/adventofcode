@@ -1,6 +1,5 @@
 <?php
 $input = file_get_contents('input.txt');
-
 if (!$input)
     return 0;
 
@@ -22,7 +21,7 @@ for ($i = 0; $i < count($matches); $i++) {
 
     [$opponent_move, $elv_move] = explode(' ', $matches[$i]);
 
-    // Second part
+    // Seconda parte
     if ($elv_move == 'Y') {
         if ($moves[$opponent_move] == 'Rock')
             $elv_move = 'X';
@@ -46,6 +45,7 @@ for ($i = 0; $i < count($matches); $i++) {
             $elv_move = 'Z';
     }
 
+    // Condivisa
     $total_point += array_search($elv_move, $moves_index) + 1;
     if ($moves[$elv_move] == $moves[$opponent_move]) {
         // draw
@@ -58,7 +58,7 @@ for ($i = 0; $i < count($matches); $i++) {
         $total_point += 0;
     }
 }
-echo ('Total points: ' . $total_point);
+echo ("Total points: {$total_point}");
 
 function winner($first_move, $second_move)
 {

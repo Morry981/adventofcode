@@ -1,6 +1,5 @@
 <?php
 $input = file_get_contents('input.txt');
-
 if (!$input)
     return 0;
 
@@ -16,7 +15,6 @@ for ($i = 0; $i < count($elves); $i++) {
     for ($j = 0; $j < count($best_elves); $j++) {
         if ($calories > $best_elves[$j]) {
             moveElves($best_elves, $j, $calories);
-            print_r($best_elves);
             break;
         }
     }

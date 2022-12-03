@@ -1,6 +1,5 @@
 <?php
 $input = file_get_contents('input.txt');
-
 if (!$input)
     return 0;
 
@@ -11,16 +10,18 @@ for ($i = 0; $i < count($rucksacks); $i++) {
         continue;
 
     // Prima parte
-    // $items = str_split($rucksacks[$i]);
-    // $middle = count($items) / 2;
-    // $compartment1 = array_slice($items, 0, $middle);
-    // $compartment2 = array_slice($items, $middle);
-    // $item = implode(
-    //     '',
-    //     get_duplicates(
-    //         array_merge(array_unique($compartment1), array_unique($compartment2))
-    //     )
-    // );
+    if ($prima_parte = false) {
+        $items = str_split($rucksacks[$i]);
+        $middle = count($items) / 2;
+        $compartment1 = array_slice($items, 0, $middle);
+        $compartment2 = array_slice($items, $middle);
+        $item = implode(
+            '',
+            get_duplicates(
+                array_merge(array_unique($compartment1), array_unique($compartment2))
+            )
+        );
+    }
 
     // Seconda parte
     $items1 = str_split($rucksacks[$i]);
@@ -41,12 +42,12 @@ for ($i = 0; $i < count($rucksacks); $i++) {
     if (!$item)
         continue;
 
-    echo ($item . ' ');
+    echo ("{$item} ");
     $value = ord($item) - (preg_match('~^\p{Lu}~u', $item) ? 38 : 96);
-    echo (ord($item) . ' - ' . $value . PHP_EOL);
+    echo (ord($item) . " - {$value}" . PHP_EOL);
     $total_point += $value;
 }
-echo ('Total points: ' . $total_point);
+echo ("Total points: {$total_point}");
 
 function get_duplicates($array)
 {
