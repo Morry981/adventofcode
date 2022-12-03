@@ -10,17 +10,34 @@ for ($i = 0; $i < count($rucksacks); $i++) {
     if (!$rucksacks[$i])
         continue;
 
-    $items = str_split($rucksacks[$i]);
-    $middle = count($items) / 2;
-    $compartment1 = array_slice($items, 0, $middle);
-    $compartment2 = array_slice($items, $middle);
+    // Prima parte
+    // $items = str_split($rucksacks[$i]);
+    // $middle = count($items) / 2;
+    // $compartment1 = array_slice($items, 0, $middle);
+    // $compartment2 = array_slice($items, $middle);
+    // $item = implode(
+    //     '',
+    //     get_duplicates(
+    //         array_merge(array_unique($compartment1), array_unique($compartment2))
+    //     )
+    // );
+
+    // Seconda parte
+    $items1 = str_split($rucksacks[$i]);
+    $items2 = str_split($rucksacks[++$i]);
+    $items3 = str_split($rucksacks[++$i]);
+
     $item = implode(
-        '',
         get_duplicates(
-            array_merge(array_unique($compartment1), array_unique($compartment2))
+            array_merge(
+                get_duplicates(array_merge(array_unique($items1), array_unique($items2))),
+                get_duplicates(array_merge(array_unique($items2), array_unique($items3))),
+                get_duplicates(array_merge(array_unique($items1), array_unique($items3)))
+            )
         )
     );
 
+    // Condiviso
     if (!$item)
         continue;
 
