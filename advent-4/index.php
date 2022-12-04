@@ -4,7 +4,7 @@ if (!$input)
     return 0;
 
 $sections = explode(PHP_EOL, $input);
-$total_pairs = 0;
+$total_pairs_full = $total_pairs_over = 0;
 for ($i = 0; $i < count($sections); $i++) {
     if (!$sections[$i])
         continue;
@@ -15,6 +15,11 @@ for ($i = 0; $i < count($sections); $i++) {
         ($pair1first >= $pair2first && $pair1second <= $pair2second) ||
         ($pair1first <= $pair2first && $pair1second >= $pair2second)
     )
-        $total_pairs++;
+        $total_pairs_full++;
+
+    // Seconda parte
+    if (!($pair1second < $pair2first || $pair1first > $pair2second))
+        $total_pairs_over++;
 }
-echo ("Total pairs: {$total_pairs}");
+echo ("Total pairs fully overlaping: {$total_pairs_full}" . PHP_EOL);
+echo ("Total pairs overlaping: {$total_pairs_over}");
