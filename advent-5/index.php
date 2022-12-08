@@ -28,10 +28,15 @@ for ($i = 0; $i < count($moves); $i++) {
     //     $crave = array_pop($containers[$from - 1]);
     //     $containers[$to - 1][] = $crave;
     // }
+
+    // Seconda parte
+    $craves = array_slice($containers[$from - 1], -$move);
+    $containers[$from - 1] = array_slice($containers[$from - 1], 0, count($containers[$from - 1]) - $move);
+    $containers[$to - 1] = array_merge($containers[$to - 1], $craves);
 }
 echo ('Last items:' . PHP_EOL);
 for ($i = 0; $i < count($containers); $i++)
-    echo (array_pop($containers[$i]) . PHP_EOL);
+    echo (array_pop($containers[$i]));
 
 // Starting point
 //     [H]         [D]     [P]        
