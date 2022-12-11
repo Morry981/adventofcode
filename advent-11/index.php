@@ -39,7 +39,8 @@ foreach ($lines as $line) {
     }
 }
 
-$moves = 20;
+$prima_parte = false;
+$moves = $prima_parte ? 20 : 10000;
 while ($moves--) {
     foreach ($monkeys as &$monkey) {
         if (!isset($monkey['round']))
@@ -47,8 +48,11 @@ while ($moves--) {
         $monkey['round'] += count($monkey['items']);
         foreach ($monkey['items'] as $item) {
             $old = $item;
+            if (!$prima_parte) // Cercato
+                $old %= (2 * 3 * 5 * 7 * 11 * 13 * 17 * 19 * 23);
             eval($monkey['operation']);
-            $new = floor($new / 3);
+            if ($prima_parte)
+                $new = floor($new / 3);
             $divisible = $new % $monkey['divisible'] === 0
                 ? 'true'
                 : 'false';
@@ -62,4 +66,4 @@ uasort($monkeys, function ($a, $b) {
     return $a['round'] > $b['round'];
 });
 print_r($monkeys);
-echo ($monkeys[5]['round'] * $monkeys[7]['round']);
+echo ($monkeys[0]['round'] * $monkeys[7]['round']);
