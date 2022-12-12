@@ -46,6 +46,23 @@ for ($r = 0; $r < $rows; $r++)
             echo ($key . PHP_EOL);
     }
 
+// Seconda parte
+$small = $rows === 5;
+$start = $small ? '0,0' : '20,0';
+$end = $small ? '2,5' : '20,68';
+print_r(bfs_path($graph, $start, $end));
+
+$results = [];
+// Probabilmente andare al contrario avrebbe fatto prima
+for ($r = 0; $r < $rows; $r++) {
+    $key = "{$r},0";
+    $result = bfs_path($graph, $key, $end);
+    $results[$key] = count($result);
+}
+print_r($results);
+echo (min($results) - 1);
+
+
 function addNode($r, $c, $current, &$graph)
 {
     global $lines;
@@ -57,9 +74,6 @@ function addNode($r, $c, $current, &$graph)
     }
     return false;
 }
-
-print_r(bfs_path($graph, '20,0', '20,68'));
-
 // Cercata
 function bfs_path($graph, $start, $end)
 {
@@ -84,8 +98,7 @@ function bfs_path($graph, $start, $end)
                 $new_path[] = $neighbour;
                 $queue->enqueue($new_path);
             }
-        }
-        ;
+        };
     }
     return false;
 }
