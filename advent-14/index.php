@@ -43,11 +43,38 @@ for ($i = 0; $i < $max_y + 5; $i++) {
 }
 echo ($sand . PHP_EOL);
 
+// Seconda parte
+$sand = 0;
+$triangle_width = 0;
+for ($r = 0; $r < $max_y + 2; $r++) {
+    for ($c = 500 - $triangle_width; $c <= 500 + $triangle_width; $c++) {
+        if (($space[$c][$r] ?? '.') === '|')
+            continue;
+
+        if (block($c - 1, $r - 1, true) && block($c, $r - 1, true) && block($c + 1, $r - 1, true)) {
+            $space[$c][$r] = '°';
+            continue;
+        }
+
+        $sand++;
+        $space[$c][$r] = 'o';
+    }
+    $triangle_width++;
+}
+
+for ($i = -2; $i < $max_y + 5; $i++) {
+    for ($j = 330; $j < $max_x + 120; $j++) {
+        echo ($space[$j][$i] ?? '.');
+    }
+    echo (PHP_EOL);
+}
+echo ($sand . PHP_EOL);
+
 function tryPosition($x, $y)
 {
     global $space, $max_x, $max_y;
 
-    if ($x > $max_x && $y > $max_y)
+    if ($x > $max_x && $y > $max_y + 1)
         return 'end';
 
     if (!block($x, $y + 1))
@@ -61,9 +88,9 @@ function tryPosition($x, $y)
 
     $space[$x][$y] = 'o';
 }
-function block($x, $y)
+function block($x, $y, $free = false)
 {
     global $space;
 
-    return in_array($space[$x][$y] ?? '.', ['|', 'o']);
+    return in_array($space[$x][$y] ?? '.', ['|', $free ? '°' : 'o']);
 }
